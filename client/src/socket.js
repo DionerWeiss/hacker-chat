@@ -6,6 +6,10 @@ export default class SocketClient {
         this.protocol = protocol
     }
 
+    sendMessage(event, message) {
+        this.#serverConnection.write(JSON.stringify({ event, message }))
+    }
+
     async createConnection() {
         const options = {
             port: 9898,
@@ -23,7 +27,7 @@ export default class SocketClient {
         return new Promise(resolve => {
             req.once('upgrade', (res, socket) => resolve(socket))
         })
-       
+
     }
 
     async initialize() {

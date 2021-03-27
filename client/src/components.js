@@ -7,9 +7,8 @@ export default class ComponentsBuilder {
     #chat
     #status
     #activityLog
-    constructor() {
 
-    }
+    constructor() { }
 
     #baseComponent() {
         return {
@@ -17,30 +16,31 @@ export default class ComponentsBuilder {
             mouse: true,
             keys: true,
             top: 0,
-            scrollbar: {
+            scrollboar: {
                 ch: ' ',
                 inverse: true
             },
-            //habilita colocar cores e tags no texto
+            // habilita colocar cores e tags no texto
             tags: true
         }
     }
 
-    setScreen({title}) {
+    setScreen({ title }) {
         this.#screen = blessed.screen({
             smartCSR: true,
             title
         })
 
         this.#screen.key(['escape', 'q', 'C-c'], () => process.exit(0))
+
         return this
     }
 
     setLayoutComponent() {
-        this.#layout = blessed.layout({
+        this.#layout = blessed.layout({ 
             parent: this.#screen,
-            width: '100%' ,
-            height: '100%' ,
+            width: '100%',
+            height: '100%',
         })
 
         return this
@@ -54,7 +54,7 @@ export default class ComponentsBuilder {
             inputOnFocus: true,
             padding: {
                 top: 1,
-                left: 2,
+                left: 2
             },
             style: {
                 fg: '#f6f6f6',
@@ -62,7 +62,7 @@ export default class ComponentsBuilder {
             }
         })
 
-        input.key('key', onEnterPressed)
+        input.key('enter', onEnterPressed)
         this.#input = input
 
         return this
@@ -76,20 +76,18 @@ export default class ComponentsBuilder {
             align: 'left',
             width: '50%',
             height: '90%',
-            items: ['{bold}Messenger{/}']
+            items: ['{bold}Messenger{/}' ]
         })
-        
+
         return this
     }
-
     setStatusComponent() {
         this.#status = blessed.list({
             ...this.#baseComponent(),
             parent: this.#layout,
             width: '25%',
             height: '90%',
-            items: ['{bold}Users on Room{/}']
-
+            items: ['{bold}Users on Room{/}' ]
         })
         return this
     }
@@ -101,10 +99,9 @@ export default class ComponentsBuilder {
             width: '25%',
             height: '90%',
             style: {
-                fg: 'yellow',
+                fg: 'yellow'
             },
-            items: ['{bold}Activity Log{/}']
-
+            items: ['{bold}Activity Log{/}' ]
         })
         return this
     }

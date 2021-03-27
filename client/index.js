@@ -2,6 +2,7 @@
 
 import Events from 'events'
 import CliConfig from './src/cliConfig.js';
+import EventManager from './src/eventManager.js';
 import SocketClient from './src/socket.js';
 import TerminalController from "./src/terminalController.js";
 
@@ -14,7 +15,13 @@ const componentEmitter = new Events()
 
 const socketClient = new SocketClient(config)
 await socketClient.initialize()
+const eventManager = new EventManager({ componentEmitter, socketClient })
+const data = { 
+    roomId: config.room,
+    username: config.username
+}
 
-// const controller = new TerminalController()
+eventManager.joinRoomAndAwaitForMessages(data)
+const controller = new TerminalController()
 
-// await controller.initializeTable(componentEmitter)
+await controller.initializeTable(componentEmitter)
